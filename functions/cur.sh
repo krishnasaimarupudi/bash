@@ -52,7 +52,7 @@ trap "signal_exit INT" INT
 # MAIN
 
 if [[ ! $# -eq 0 ]]; then
-echo "$(curl -s "https://www.xe.com/currencyconverter/convert/?Amount=$3&From=$1&To=$2" | pup 'p.dPdXSB text{}' | awk 'NR==1{print $1}') $2"
+echo "$(curl -s "https://www.xe.com/currencyconverter/convert/?Amount=${3^^}&From=${1^^}&To=${2^^}" | pup 'p.dPdXSB text{}' | awk 'NR==1{print $1}') ${2^^}"
 
 
 else
@@ -60,7 +60,7 @@ else
   read -p 'Please enter the currency you would like to convert from: ' from
   read -p 'Please enter the currency you would like to convert to: ' to
   read -p 'Please enter the amount: ' amount
-  echo "$(curl -s "https://www.xe.com/currencyconverter/convert/?Amount=$amount&From=$from&To=$to" | pup '.dPdXSB text{}' | awk 'NR==1{print $1}') $to"
+  echo "$(curl -s "https://www.xe.com/currencyconverter/convert/?Amount=${amount^^}&From=${from^^}&To=${to^^}" | pup '.dPdXSB text{}' | awk 'NR==1{print $1}') ${to^^}"
 fi
 
 graceful_exit
